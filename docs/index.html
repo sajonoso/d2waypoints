@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Diablo 2 Waypoint Enabler</title>
+    <meta name="description" content="Diablo 2 Waypoint Enabler" />
+    <meta name="author" content="sajonoso@users.noreply.github.com" />
+
+    <style>
+      #dropzone1 {
+        width: 60%;
+        height: 200px;
+      }
+      .droptarget {
+        background-color: black;
+        border: 5px solid white;
+      }
+      .droptarget.dragover {
+        background-color: rgb(20, 20, 20);
+        border: 5px dashed white;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+        overflow-x: hidden;
+      }
+      div.page {
+        background-color: black;
+        min-height: 100vh;
+        width: 100vw;
+        color: white;
+        position: absolute;
+        padding: 10px;
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 1em;
+      }
+      #dropzone1 {
+        background: url(images/waypoint.gif) center no-repeat;
+        margin: 0 auto;
+      }
+      .warning-text {
+        color: #cd5c5c;
+      }
+    </style>
+  </head>
+
+  <body ondrop="return false;">
+    <div class="page">
+      <img class="title" src="images/title.png" />
+      <p>
+        This single page application will enable nearly all waypoints for your
+        Diablo 2 character in normal level.
+      </p>
+      <p>
+        It was created to test a character when using the <b>-act5</b> command
+        line switch
+      </p>
+      <p>
+        Only the <b>Halls of Pain</b> waypoint is not enabled to allow repeated
+        access to the portal leading to Nihlathak's Temple.<br />
+        To use this tool, simply drag and drop your character file (ending in
+        .d2s) into the white box below. Save the new file with the same name and
+        replace the old file.
+      </p>
+      <p class="warning-text">
+        Ensure you keep a backup copy of your old character file.
+      </p>
+      <p class="warning-text">
+        Use at your own risk. There is no warranty of any kind, either expressed
+        or implied
+      </p>
+
+      <div id="dropzone1"></div>
+    </div>
+
+    <script src="./BigInteger.min.js"></script>
+    <script src="./waypoint-enabler.js"></script>
+  </body>
+</html>
