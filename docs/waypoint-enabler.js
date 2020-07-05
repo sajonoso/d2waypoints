@@ -125,6 +125,16 @@ const D2CharEdit = {
     D2CharEdit.writeWORD(buf, index + 2, word >> 16);
   },
 
+  readString: function(buf, index, length) {
+    function hexByte(n) { return (n <= 0xf ? '0' : '') + n.toString(16); };
+    var result = ""
+    for (var i = 0; i < length; i++) {
+      result += ("\\x" + hexByte(buf[index + i]))
+    }
+
+    console.log(result)
+  },
+
   writeString: function(buf, index, str) {
     for (var i = 0; i < str.length; i++) {
       buf[index + i] = str.charCodeAt(i);
@@ -135,14 +145,22 @@ const D2CharEdit = {
     D2CharEdit.writeDWORD(buf, 0xc, value);
   },
 
-  updateQuestData: function(buf) {
+  updateQuestData: function(buf, level) {
+    if (level==="nightmare") {
+      const questData =
+      "\x9f\x01\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x01\x00\x1d\x90\x79\x1c\xfd\x9f\xfd\x9f\xfd\x9f\xe5\x1f\x01\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x80";
+      D2CharEdit.writeString(buf, 0x186, questData);
+    } else {
     const questData =
       "\x57\x6f\x6f\x21\x06\x00\x00\x00\x2a\x01\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x01\x00\x1d\x90\x79\x1c\xfd\x9f\xfd\x9f\xfd\x9f\xe5\x1f\x01\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x97\x01\x00\x01\x00\xfd\x9f\xfd\x9f\xfd\x9f\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\xfd\x9f\xed\x9f\xfd\x9f\xfd\x9f\xfd\x9f\xfd\x9f\x01\x80\x00\x00\x00\x00\x00\x00";
-      D2CharEdit.writeString(buf, 335, questData);
+      D2CharEdit.writeString(buf, 0x14f, questData);
+    }
   },
 
-  activateWayPoints: function(buf) {
-    D2CharEdit.writeString(buf, 0x283, "\xff\xff\xff\xff\x77");
+  activateWayPoints: function(buf, level) {
+    var offset = 0x283 // normal mode offset
+    if (level==="nightmare") offset = 0x29B
+    D2CharEdit.writeString(buf, offset, "\xff\xff\xff\xff\x77");
   }
 };
 
@@ -153,6 +171,12 @@ function processFile(buf, file, count, total) {
   if (D2CharEdit.isCharacterFile(fileUI8)) {
     D2CharEdit.updateQuestData(fileUI8);
     D2CharEdit.activateWayPoints(fileUI8);
+
+    if (ID('mode_nightmare').checked) {
+      D2CharEdit.updateQuestData(fileUI8, "nightmare");
+      D2CharEdit.activateWayPoints(fileUI8, "nightmare");
+    };
+
     const checksum = D2CharEdit.calculateCheckSum(fileUI8);
     D2CharEdit.writeCheckSum(fileUI8, checksum);
     saveFileString(file.name, fileUI8);
