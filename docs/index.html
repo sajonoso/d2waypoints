@@ -6,6 +6,7 @@
     <title>Diablo 2 Waypoint Enabler</title>
     <meta name="description" content="Diablo 2 Waypoint Enabler" />
     <meta name="author" content="sajonoso@users.noreply.github.com" />
+    <meta name="version" content="2.0.0" />
 
     <style>
       #dropzone1 {
@@ -56,7 +57,13 @@
       </p>
       <p>
         It was created to test a character when using the <b>-act5</b> command
-        line switch
+        line switch.<br/>
+        For Diablo 2 Resurrected this option is not available.<br/>
+        You should enable the checkbox below instead to bring a characters stats up to Level 33
+      </p>
+      <p>
+        Ensure you have activated at least 1 way point before trying to apply this patcher.<br/>
+        Also your .d2s file must be at least 1024 bytes in size, so place some items in your stash or inventory first
       </p>
       <p>
         Only the <b>Halls of Pain</b> waypoint is not enabled to allow repeated
@@ -73,8 +80,15 @@
         or implied
       </p>
 
-      <input type="checkbox" id="mode_nightmare"><label for="mode_nightmare">Enable nightmare mode</label>
+      <p>
+      <input type="checkbox" id="enable_level33"><label for="enable_level33">Set character to level 33 stats</label>
+      <br/>
+      <br/>
+      <input type="checkbox" id="mode_nightmare" checked><label for="mode_nightmare" >Enable nightmare mode</label>
+      <br/>
+      <br/>
       <div id="dropzone1"></div>
+      </p>
     </div>
 
     <script src="./BigInteger.min.js"></script>
