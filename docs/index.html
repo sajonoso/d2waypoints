@@ -1,103 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
 
-    <title>Diablo 2 Waypoint Enabler</title>
-    <meta name="description" content="Diablo 2 Waypoint Enabler" />
-    <meta name="author" content="sajonoso@users.noreply.github.com" />
-    <meta name="version" content="2.0.0" />
+<head>
+  <meta charset="utf-8" />
 
-    <style>
-      #dropzone1 {
-        width: 60%;
-        height: 200px;
-      }
-      .droptarget {
-        background-color: black;
-        border: 5px solid orange;
-      }
-      .droptarget.dragover {
-        background-color: rgb(20, 20, 20);
-        border: 5px dashed orange;
-      }
+  <title>Diablo 2 Waypoint Enabler</title>
+  <meta name="description" content="Diablo 2 Waypoint Enabler" />
+  <meta name="author" content="sajonoso@users.noreply.github.com" />
+  <meta name="version" content="2.0.0" />
 
-      body {
-        padding: 0;
-        margin: 0;
-        overflow-x: hidden;
-      }
-      div.page {
-        background-color: black;
-        min-height: 100vh;
-        width: 100vw;
-        color: white;
-        position: absolute;
-        padding: 10px;
-        text-align: center;
-        font-family: sans-serif;
-        font-size: 1em;
-      }
-      #dropzone1 {
-        background: url(images/waypoint.gif) center no-repeat;
-        margin: 0 auto;
-      }
-      .warning-text {
-        color: #cd5c5c;
-      }
-    </style>
-  </head>
+  <style>
+    #dropzone1 {
+      width: 60%;
+      height: 200px;
+    }
 
-  <body ondrop="return false;">
-    <div class="page">
-      <img class="title" src="images/title.png" />
-      <p>
-        This single page application will enable nearly all waypoints for your
-        Diablo 2 character in normal level and nightmare level.<br/>
-        Drag and drop your character .d2s file in the orange box below, your browser should then prompt you to save a new file.
-      </p>
-      <p class="warning-text">
-        Ensure you keep a backup copy of your old character file.<br/>
-        Use at your own risk. There is no warranty of any kind, either expressed or implied
-      </p>
+    .droptarget {
+      background-color: black;
+      border: 5px solid orange;
+    }
 
-      <p>
+    .droptarget.dragover {
+      background-color: rgb(20, 20, 20);
+      border: 5px dashed orange;
+    }
+
+    body {
+      padding: 0;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    div.page {
+      background-color: black;
+      min-height: 100vh;
+      width: 100vw;
+      color: white;
+      position: absolute;
+      padding: 10px;
+      text-align: center;
+      font-family: sans-serif;
+      font-size: 1em;
+    }
+
+    #dropzone1 {
+      background: url(images/waypoint.gif) center no-repeat;
+      margin: 0 auto;
+    }
+
+    .warning-text {
+      color: #cd5c5c;
+    }
+  </style>
+</head>
+
+<body ondrop="return false;">
+  <div class="page">
+    <img class="title" src="images/title.png" />
+    <p>
+      This single page application will enable nearly all waypoints for your
+      Diablo 2 character in normal level and nightmare level.<br />
+      To use this tool, Drag and drop your character .d2s file in the orange box below, your browser should then prompt
+      you to save a new file.
+    </p>
+    <p class="warning-text">
+      Ensure you keep a backup copy of your old character file.<br />
+      Use at your own risk. There is no warranty of any kind, either expressed or implied
+    </p>
+
+    <p>
       <input type="checkbox" id="enable_level33"><label for="enable_level33">Set character to level 33 stats</label>
-      <br/>
+      <br />
       <input type="checkbox" id="enrich"><label for="enrich">Make millionaire</label>
-      <br/>
-      <input type="checkbox" id="mode_nightmare" checked><label for="mode_nightmare" >Enable nightmare mode</label>
-      <br/>
-      <div id="dropzone1"></div>
-      </p>
-      <p>
-        This application was created to test a character when using the <b>-act5</b> command
-        line switch.<br/>
-        For Diablo 2 Resurrected this option is not available.<br/>
-        Instead, you should enable the checkbox to bring a characters stats up to Level 33
-      </p>
-      <p>The make millionaire option will set character stash to 1,000,000 gold, inventory to 300,000 gold</p>
-      <p>
-        This patcher can only modify existing attributes so please ensure you have some numbers in the character.<br/>
-        The .d2s file does not store anything with a zero value, so ensure something is not zero to allow the patcher to increase it.<br/>
-        For example:
-        <ul style="list-style-type:none">
-          <li>* Leave some skills & attribute points unused to allow patcher to increase it.</li>
-          <li>* Ensure you have activated at least 1 way point before trying to apply this patcher</li>
-          <li>* To increase gold, make sure you already have some in the inventory and stash</li>
-        </ul>
-        Also your .d2s file must be at least 1024 bytes in size, so place some items in your stash or inventory first
-      </p>
-      <p>
-        Only the <b>Halls of Pain</b> waypoint is not enabled to allow repeated
-        access to the portal leading to Nihlathak's Temple.<br />
-        To use this tool, simply drag and drop your character file (ending in
-        .d2s) into the white box below. Save the new file with the same name and
-        replace the old file.
-      </p>
-    </div>
+      <br />
+      <input type="checkbox" id="mode_nightmare" checked><label for="mode_nightmare">Enable nightmare mode</label>
+      <br />
+    <div id="dropzone1"></div>
+    </p>
+    <p>
+      This application was created to test a character when using the <b>-act5</b> command
+      line switch.<br />
+      For Diablo 2 Resurrected this option is not available.<br />
+      Instead, you should enable the checkbox to bring a characters stats up to Level 33
+    </p>
+    <p>The make millionaire option will set character stash to 1,000,000 gold, inventory to 300,000 gold</p>
+    <p>
+      This patcher can only modify existing attributes so please ensure you have some numbers in the character.<br />
+      The .d2s file does not store anything with a zero value, so ensure something is not zero to allow the patcher to
+      increase it.<br />
+      For example:
+    <ul style="list-style-type:none">
+      <li>* Leave some skills & attribute points unused to allow patcher to increase it.</li>
+      <li>* Ensure you have activated at least 1 way point before trying to apply this patcher</li>
+      <li>* To increase gold, make sure you already have some in the inventory and stash</li>
+    </ul>
+    Also your .d2s file must be at least 1024 bytes in size, so place some items in your stash or inventory first
+    </p>
+    <p>
+      Only the <b>Halls of Pain</b> waypoint is not enabled to allow repeated
+      access to the portal leading to Nihlathak's Temple.<br />
+    </p>
+  </div>
 
-    <script src="./BigInteger.min.js"></script>
-    <script src="./waypoint-enabler.js"></script>
-  </body>
+  <script src="./BigInteger.min.js"></script>
+  <script src="./waypoint-enabler.js"></script>
+</body>
+
 </html>
