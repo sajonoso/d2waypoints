@@ -15,11 +15,11 @@
       }
       .droptarget {
         background-color: black;
-        border: 5px solid white;
+        border: 5px solid orange;
       }
       .droptarget.dragover {
         background-color: rgb(20, 20, 20);
-        border: 5px dashed white;
+        border: 5px dashed orange;
       }
 
       body {
@@ -53,16 +53,39 @@
       <img class="title" src="images/title.png" />
       <p>
         This single page application will enable nearly all waypoints for your
-        Diablo 2 character in normal level and nightmare level.
+        Diablo 2 character in normal level and nightmare level.<br/>
+        Drag and drop your character .d2s file in the orange box below, your browser should then prompt you to save a new file.
+      </p>
+      <p class="warning-text">
+        Ensure you keep a backup copy of your old character file.<br/>
+        Use at your own risk. There is no warranty of any kind, either expressed or implied
+      </p>
+
+      <p>
+      <input type="checkbox" id="enable_level33"><label for="enable_level33">Set character to level 33 stats</label>
+      <br/>
+      <input type="checkbox" id="enrich"><label for="enrich">Make millionaire</label>
+      <br/>
+      <input type="checkbox" id="mode_nightmare" checked><label for="mode_nightmare" >Enable nightmare mode</label>
+      <br/>
+      <div id="dropzone1"></div>
       </p>
       <p>
-        It was created to test a character when using the <b>-act5</b> command
+        This application was created to test a character when using the <b>-act5</b> command
         line switch.<br/>
         For Diablo 2 Resurrected this option is not available.<br/>
-        You should enable the checkbox below instead to bring a characters stats up to Level 33
+        Instead, you should enable the checkbox to bring a characters stats up to Level 33
       </p>
+      <p>The make millionaire option will set character stash to 1,000,000 gold, inventory to 300,000 gold</p>
       <p>
-        Ensure you have activated at least 1 way point before trying to apply this patcher.<br/>
+        This patcher can only modify existing attributes so please ensure you have some numbers in the character.<br/>
+        The .d2s file does not store anything with a zero value, so ensure something is not zero to allow the patcher to increase it.<br/>
+        For example:
+        <ul style="list-style-type:none">
+          <li>* Leave some skills & attribute points unused to allow patcher to increase it.</li>
+          <li>* Ensure you have activated at least 1 way point before trying to apply this patcher</li>
+          <li>* To increase gold, make sure you already have some in the inventory and stash</li>
+        </ul>
         Also your .d2s file must be at least 1024 bytes in size, so place some items in your stash or inventory first
       </p>
       <p>
@@ -71,23 +94,6 @@
         To use this tool, simply drag and drop your character file (ending in
         .d2s) into the white box below. Save the new file with the same name and
         replace the old file.
-      </p>
-      <p class="warning-text">
-        Ensure you keep a backup copy of your old character file.
-      </p>
-      <p class="warning-text">
-        Use at your own risk. There is no warranty of any kind, either expressed
-        or implied
-      </p>
-
-      <p>
-      <input type="checkbox" id="enable_level33"><label for="enable_level33">Set character to level 33 stats</label>
-      <br/>
-      <br/>
-      <input type="checkbox" id="mode_nightmare" checked><label for="mode_nightmare" >Enable nightmare mode</label>
-      <br/>
-      <br/>
-      <div id="dropzone1"></div>
       </p>
     </div>
 

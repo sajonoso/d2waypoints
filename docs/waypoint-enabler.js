@@ -1,6 +1,6 @@
 // Version 2.0.0
 
-const print = console.log;
+const prnt = console.log;
 function ID(o) {
   return document.getElementById(o);
 }
@@ -30,8 +30,8 @@ const CHAR_TYPE_LIST = ['ama', 'sor', 'nec', 'pal', 'bar', 'dru', 'ass']
 
 // Character values
 ATTRIB_AMAZON_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 116,
@@ -49,8 +49,8 @@ ATTRIB_AMAZON_L33 = {
 }
 
 ATTRIB_ASSASSIN_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 135,
@@ -68,8 +68,8 @@ ATTRIB_ASSASSIN_L33 = {
 }
 
 ATTRIB_NECRO_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 111,
@@ -87,8 +87,8 @@ ATTRIB_NECRO_L33 = {
 }
 
 ATTRIB_BARB_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 124,
@@ -106,8 +106,8 @@ ATTRIB_BARB_L33 = {
 }
 
 ATTRIB_PALADIN_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 121,
@@ -125,8 +125,8 @@ ATTRIB_PALADIN_L33 = {
 }
 
 ATTRIB_SORC_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 106,
@@ -144,8 +144,8 @@ ATTRIB_SORC_L33 = {
 }
 
 ATTRIB_DRUID_L33 = {
-  "stashedGold": 0,
-  "gold": 0,
+  // "stashedGold": 0,
+  // "gold": 0,
   "experience": EXPERIENCE_BY_LEVEL[32], // 7383752
   "level": 33,
   "maxStamina": 116,
@@ -218,7 +218,7 @@ const ATTRIBUTES = [
 // map attribute names to ids
 const ATTRIBUTE_IDS = {}
 for (var i = ATTRIBUTES.length; i--;) ATTRIBUTE_IDS[ATTRIBUTES[i].name] = ATTRIBUTES[i].id;
-// print(ATTRIBUTE_IDS)
+// prnt(ATTRIBUTE_IDS)
 
 const DragDrop = {
   checkSupport: function () {
@@ -429,8 +429,6 @@ const D2CharEdit = {
     const header = this.readString(buf, STATS_OFFSET, 2);
     const dof = STATS_OFFSET + 2; // Data Offset
 
-    // print(`header: ${header}`);
-
     if (header !== 'gf') return "Error: invalid stats header";
 
     var bstart = 0;
@@ -445,7 +443,7 @@ const D2CharEdit = {
       bstart += attribLen;
 
       attributes[ATTRIBUTES[aID].name] = value;
-      // print(`>>>  Attrib: ${aID} ${ATTRIBUTES[aID].name}: Value: ${value}`)
+      // prnt(`>>>  Attrib: ${aID} ${ATTRIBUTES[aID].name}: Value: ${value}`)
 
       aID = this.readRVBits(buf, dof, bstart, 9);
       bstart += 9;
@@ -476,15 +474,6 @@ const D2CharEdit = {
 
     bitData = bitData.concat(this.rvBits(0x1ff, 9))
 
-    // bitData = bitData + 'x'
-    // GLOBAL_BITS = GLOBAL_BITS + 'x'
-
-    // print(GLOBAL_BITS)
-    // print('.')
-    // print(bitData)
-
-    // print(bitData == GLOBAL_BITS ? '** SAME' : `** DIFFERENT ${bitData.length} / ${GLOBAL_BITS.length}`)
-
     const dof = STATS_OFFSET + 2; // Data Offset
     const dataBytes = Math.floor(bitData.length / 8)
     var remainingBits = bitData
@@ -495,25 +484,33 @@ const D2CharEdit = {
   },
 
   setLevel33: function (buf) {
-    const charType = this.getCharType(buf);
-
     var attribOrError = D2CharEdit.getStats(buf);
-    if (typeof (attribOrError) !== 'object') return print(attribOrError);
+    if (typeof (attribOrError) !== 'object') return prnt(attribOrError);
     const characterAttributes = attribOrError
 
-    print(`Character type: ${charType}`);
-
-    print('OLD Stats')
-    print(scaleAttributes(characterAttributes, true))
-
+    const charType = D2CharEdit.getCharType(buf);
     const newAttributes = TYPE_LVL33_ATTRIB[charType]
-
-    print('NEW Stats')
-    print(newAttributes);
 
     this.setStats(buf, characterAttributes, scaleAttributes(newAttributes));
     this.setHeaderLevel(buf, 33);
+  },
 
+  makeMillionaire: function (buf) {
+    var attribOrError = D2CharEdit.getStats(buf);
+    if (typeof (attribOrError) !== 'object') return prnt(attribOrError);
+    const characterAttributes = attribOrError
+
+    const newAttributes = { stashedGold: 1000000, gold: 300000 }
+
+    this.setStats(buf, characterAttributes, scaleAttributes(newAttributes));
+  },
+
+  showStats: function(buf) {
+    var attribOrError = D2CharEdit.getStats(buf);
+    if (typeof (attribOrError) !== 'object') return prnt(attribOrError);
+    const characterAttributes = attribOrError
+
+    prnt( scaleAttributes(characterAttributes) )
   }
 };
 
@@ -523,14 +520,27 @@ function processFile(buf, file, count, total) {
 
   if (D2CharEdit.isCharacterFile(fileUI8)) {
     const fileVersion = D2CharEdit.getFileVersion(fileUI8);
-    print('File version: ' + fileVersion);
+    prnt('File version: ' + fileVersion);
+
+    const charType = D2CharEdit.getCharType(fileUI8);
+    prnt(`Character type: ${charType}`);
+
+    prnt('Old character stats')
+    D2CharEdit.showStats(fileUI8)
 
     D2CharEdit.updateQuestData(fileUI8);
     D2CharEdit.activateWayPoints(fileUI8);
 
+    if (ID('enrich').checked) {
+      D2CharEdit.makeMillionaire(fileUI8)
+    }
+
     if (ID('enable_level33').checked) {
       D2CharEdit.setLevel33(fileUI8)
     }
+
+    prnt('New character stats')
+    D2CharEdit.showStats(fileUI8)
 
     if (ID('mode_nightmare').checked) {
       D2CharEdit.updateQuestData(fileUI8, "nightmare");
@@ -551,4 +561,4 @@ if (DragDrop.checkSupport()) {
   alert("The File APIs are not fully supported in this browser.");
 }
 
-print("Ready!");
+prnt("Ready!");
